@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Lab02Mykhailenko.Views.PersonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lab02Mykhailenko.Views" 
+             xmlns:viewmodels="clr-namespace:Lab02Mykhailenko.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:PersonViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:Background="Beige">
+    
+    <Grid HorizontalAlignment="Center" Width="780" >
+        <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+        <RowDefinition />
+        <RowDefinition />
+         <RowDefinition Height="40" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock FontSize="20" Grid.Row="0" Margin="5" Grid.Column="0" Foreground="Teal"
+         Text="Введіть ім'я: "/>
+        <TextBlock FontSize="20" Grid.Row="1" Margin="5" Grid.Column="0" Foreground="Teal"
+         Text="Введіть прізвище: "/>
+        <TextBlock FontSize="20" Grid.Row="2" Margin="5" Grid.Column="0" Foreground="Teal"
+         Text="Введіть email: "/>
+        <TextBlock FontSize="20" Grid.Row="3" Margin="5" Grid.Column="0" Foreground="Teal"
+         Text="Введіть дату народження: "/>
+
+        <TextBox  Grid.Row="0" Margin="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="30"/>
+        <TextBox  Grid.Row="1" Margin="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="30"/>
+        <TextBox  Grid.Row="2" Margin="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="30"/>
+        <DatePicker IsDropDownOpen="True" SelectedDateFormat="Short"  Grid.Row="3" Grid.Column="1" SelectedDate="{Binding Birthday, Mode=TwoWay}" />
+
+        <Button  Grid.Row="4" Margin="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Продовжити" Command="{Binding SelectDateCommand}"/>
+    </Grid>
+</UserControl>
