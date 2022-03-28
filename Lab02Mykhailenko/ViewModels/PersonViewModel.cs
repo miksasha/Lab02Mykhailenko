@@ -18,6 +18,7 @@ namespace Lab02Mykhailenko.ViewModels
     + Потрібно використовувати асинхронність в всіх місцях де можуть бути потенційні затримки часу виконання
      */
 
+
     //Питання:
     //чи потрібно  CorrectDate, BirthdayIsToday додавати в Person.cs
 
