@@ -33,7 +33,7 @@ namespace Lab02Mykhailenko.Models
         public DateTime Birthday
         {
             get
-            { return _birthday; }
+            { return _birthday.Date; }
 
             set
             {
@@ -84,7 +84,7 @@ namespace Lab02Mykhailenko.Models
                 if (today.Month - _birthday.Month < 0) --age;
                 if (today.Month - _birthday.Month == 0 && today.Day - _birthday.Day < 0) --age;
 
-                if (age > 18) return true;
+                if (age >= 18) return true;
                 return false; 
             }
         }
