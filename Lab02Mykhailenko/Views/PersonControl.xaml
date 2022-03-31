@@ -41,11 +41,11 @@
          Text="Дата народження: "/>
 
         <TextBox  Grid.Row="1" Margin="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="30"
-                  Text="{Binding Name, Mode=TwoWay}"/>
+                  Text="{Binding Name, Mode=OneWayToSource}"/>
         <TextBox  Grid.Row="3" Margin="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="30"
-                  Text="{Binding Surname, Mode=TwoWay}"/>
+                  Text="{Binding Surname, Mode=OneWayToSource}"/>
         <TextBox  Grid.Row="5" Margin="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="30"
-                  Text="{Binding Email, Mode=TwoWay}"/>
+                  Text="{Binding Email, Mode=OneWayToSource}"/>
         <DatePicker IsDropDownOpen="True" SelectedDateFormat="Short"  Grid.Row="7" Grid.Column="1" 
                   SelectedDate="{Binding Birthday, Mode=TwoWay}" />
         <Button  Grid.Row="9" Margin="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Продовжити" Command="{Binding SelectDateCommand}"/>

@@ -7,9 +7,6 @@ namespace Lab02Mykhailenko.ViewModels
 {
 
     /*
-     + Кнопка повинна бути неактивною, якщо хоча б одне поле не заповнене. (тімс)
-     + очищати поля, якщо не правильна дата
-     + Якщо перевірки пройшли успішно, вивести значення всіх 8-ми полів класу.
      + Обчислення повинні відбуватись асинхронно 
 
     Правила виконання роботи:
@@ -28,23 +25,34 @@ namespace Lab02Mykhailenko.ViewModels
         private Person _person = new Person(null, null, null);
         private RelayCommand<object> _selectDateCommand;
         #endregion
-
         #region Properties
         public string Name
         {
-            get { return _person.Name; }
+            get
+            {
+                if (CorrectDate()) { return _person.Name; }
+                return " ";
+            }
             set { _person.Name = value; }
         }
 
         public string Surname
         {
-            get { return _person.Surname; }
+            get
+            {
+                if (CorrectDate()) { return _person.Surname; }
+                return " ";
+            }
             set { _person.Surname = value; }
         }
 
         public string Email
         {
-            get { return _person.Email; }
+            get
+            {
+                if (CorrectDate()) { return _person.Email; }
+                return " ";
+            }
             set { _person.Email = value; }
         }
 
@@ -64,27 +72,59 @@ namespace Lab02Mykhailenko.ViewModels
 
         public string BirthdayToString
         {
-            get { return Birthday.ToString("d"); }
+            get
+            {
+                if (CorrectDate()) { return Birthday.ToString("d"); }
+                return " ";
+            }
         }
 
-        public bool IsAdult
+        public bool IsAdultBool
         {
             get { return _person.IsAdult; }
+
+        }
+
+        public string IsAdult
+        {
+            get
+            {
+                if (CorrectDate()) { return _person.IsAdult.ToString(); }
+                return " ";
+            }
+
         }
 
         public string SunSign
         {
-            get { return _person.SunSign; }
+            get
+            {
+                if (CorrectDate()) { return _person.SunSign; }
+                return " ";
+            }
         }
 
         public string ChineseSign
         {
-            get { return _person.ChineseSign; }
+            get
+            {
+                if (CorrectDate()) { return _person.ChineseSign; }
+                return " ";
+            }
         }
 
-        public bool IsBirthday
+        public bool IsBirthdayBool
         {
             get { return _person.IsBirthday; }
+        }
+
+        public string IsBirthday
+        {
+            get 
+            {
+                if (CorrectDate()) { return  _person.IsBirthday.ToString();  }
+                return " ";
+            }
         }
         #endregion
 
@@ -115,29 +155,26 @@ namespace Lab02Mykhailenko.ViewModels
         {
             get
             {
-                return _selectDateCommand ??= new RelayCommand<object>(_ => SetData());
+                return _selectDateCommand ??= new RelayCommand<object>(_ => SetData() , CanExecute);
             }
         }
         private void SetData()
         {
+
+            NotifyPropertyChanged("Name");
+            NotifyPropertyChanged("Surname");
+            NotifyPropertyChanged("Email");
+            NotifyPropertyChanged("BirthdayToString");
+            NotifyPropertyChanged("IsAdult");
+            NotifyPropertyChanged("SunSign");
+            NotifyPropertyChanged("ChineseSign");
+            NotifyPropertyChanged("IsBirthday");
             if (!CorrectDate())
             {
-                //NotifyPropertyChanged("Name");
-                //NotifyPropertyChanged("Surname");
-                //NotifyPropertyChanged("Email");
-                //NotifyPropertyChanged("Birthday");
                 MessageBox.Show("Ви ввели не правильну дату народження!");
             }
             else
             {
-                NotifyPropertyChanged("Name");
-                NotifyPropertyChanged("Surname");
-                NotifyPropertyChanged("Email");
-                NotifyPropertyChanged("BirthdayToString");
-                NotifyPropertyChanged("IsAdult");
-                NotifyPropertyChanged("SunSign");
-                NotifyPropertyChanged("ChineseSign");
-                NotifyPropertyChanged("IsBirthday");
                 if (BirthdayIsToday())
                 {
                     MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!");
@@ -150,6 +187,10 @@ namespace Lab02Mykhailenko.ViewModels
         protected void NotifyPropertyChanged(string info)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+        }
+        private bool CanExecute(object obj)
+        {
+            return !String.IsNullOrWhiteSpace(_person.Name) && !String.IsNullOrWhiteSpace(_person.Surname) && !String.IsNullOrWhiteSpace(_person.Email);
         }
 
     }
