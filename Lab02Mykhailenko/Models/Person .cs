@@ -61,9 +61,7 @@ namespace Lab02Mykhailenko.Models
             _name = name;
             _surname = surname;
             _email = email;
-
-            DateTime tomorrow = DateTime.Today.AddDays(1);
-            _birthday = tomorrow;
+            _birthday = DateTime.Today.AddDays(1);
         }
 
         //Ім’я, прізвище, дата народження
