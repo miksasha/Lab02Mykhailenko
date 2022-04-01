@@ -25,6 +25,7 @@ namespace Lab02Mykhailenko.ViewModels
         private Person _person = new Person(null, null, null);
         private RelayCommand<object> _selectDateCommand;
         #endregion
+
         #region Properties
         public string Name
         {
@@ -158,6 +159,7 @@ namespace Lab02Mykhailenko.ViewModels
                 return _selectDateCommand ??= new RelayCommand<object>(_ => SetData() , CanExecute);
             }
         }
+
         private void SetData()
         {
 
