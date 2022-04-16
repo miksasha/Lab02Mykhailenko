@@ -1,6 +1,8 @@
 ﻿using Lab02Mykhailenko.Models;
 using System;
 using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Lab02Mykhailenko.ViewModels
@@ -17,6 +19,7 @@ namespace Lab02Mykhailenko.ViewModels
         #region Fields
         private Person _person = new Person(null, null, null);
         private RelayCommand<object> _selectDateCommand;
+        private bool _isEnabled = true;
         #endregion
 
         #region Properties
@@ -60,6 +63,9 @@ namespace Lab02Mykhailenko.ViewModels
                 if (_person.Birthday != value)
                 {
                     _person.Birthday = value;
+                    _isEnabled = false;
+                    Task.Run(async () => await setAsynchronouData());
+                    _isEnabled = true;
                 }
             }
         }
@@ -128,6 +134,18 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
+        public bool IsEnable
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                _isEnabled = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         #region Check
@@ -152,6 +170,14 @@ namespace Lab02Mykhailenko.ViewModels
             return false;
         }
         #endregion
+
+        private async Task setAsynchronouData()
+        {
+            await Task.Run(() => IsAdult);
+            await Task.Run(() => SunSign);
+            await Task.Run(() => ChineseSign);
+            await Task.Run(() => IsBirthday);
+        }
 
         public RelayCommand<object> SelectDateCommand
         {
@@ -187,7 +213,7 @@ namespace Lab02Mykhailenko.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged(string info)
+        protected void NotifyPropertyChanged(string info = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }

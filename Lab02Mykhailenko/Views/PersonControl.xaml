@@ -7,7 +7,8 @@
              xmlns:viewmodels="clr-namespace:Lab02Mykhailenko.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewmodels:PersonViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" d:Background="Beige">
+             d:DesignHeight="450" d:DesignWidth="800" d:Background="Beige"
+             IsEnabled="{Binding IsEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
     
     <Grid HorizontalAlignment="Center" Width="780" >
         <Grid.RowDefinitions>
