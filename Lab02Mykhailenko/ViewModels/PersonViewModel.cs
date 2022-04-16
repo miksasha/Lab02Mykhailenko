@@ -63,9 +63,9 @@ namespace Lab02Mykhailenko.ViewModels
                 if (_person.Birthday != value)
                 {
                     _person.Birthday = value;
-                    _isEnabled = false;
+                    IsEnabled = false;
                     Task.Run(async () => await setAsynchronouData());
-                    _isEnabled = true;
+                    IsEnabled = true;
                 }
             }
         }
@@ -134,7 +134,7 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        public bool IsEnable
+        public bool IsEnabled
         {
             get
             {
@@ -173,6 +173,8 @@ namespace Lab02Mykhailenko.ViewModels
 
         private async Task setAsynchronouData()
         {
+            await Task.Run(() => CorrectDate());
+            await Task.Run(() => BirthdayIsToday());
             await Task.Run(() => IsAdult);
             await Task.Run(() => SunSign);
             await Task.Run(() => ChineseSign);
@@ -187,7 +189,7 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        private async void SetData()
+        private void SetData()
         {
 
             NotifyPropertyChanged("Name");
