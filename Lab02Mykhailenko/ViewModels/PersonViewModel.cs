@@ -8,16 +8,9 @@ namespace Lab02Mykhailenko.ViewModels
 
     /*
      + Обчислення повинні відбуватись асинхронно 
-
-    Правила виконання роботи:
-
-    + Потрібно по максимум приховувати компоненти. Public використовувати лише там, де це необхідно.
     + Потрібно використовувати асинхронність в всіх місцях де можуть бути потенційні затримки часу виконання
      */
 
-
-    //Питання:
-    //чи потрібно  CorrectDate, BirthdayIsToday додавати в Person.cs
 
     class PersonViewModel : INotifyPropertyChanged
     {
@@ -80,9 +73,17 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        public bool IsAdultBool
+        public string IsAdultBool
         {
-            get { return _person.IsAdult; }
+            get {
+                if (CorrectDate())
+                {
+                    if (_person.IsAdult)
+                    return "Так";
+                return "Ні";
+                }
+                return " ";
+            }
 
         }
 
@@ -90,7 +91,7 @@ namespace Lab02Mykhailenko.ViewModels
         {
             get
             {
-                if (CorrectDate()) { return _person.IsAdult.ToString(); }
+                if (CorrectDate()) { return IsAdultBool; }
                 return " ";
             }
 
@@ -114,19 +115,19 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        public bool IsBirthdayBool
-        {
-            get { return _person.IsBirthday; }
-        }
-
         public string IsBirthday
         {
-            get 
-            {
-                if (CorrectDate()) { return  _person.IsBirthday.ToString();  }
+            get {
+                if (CorrectDate())
+                {
+                    if (_person.IsBirthday)
+                        return "Так";
+                    return "Ні";
+                }
                 return " ";
             }
         }
+
         #endregion
 
         #region Check
@@ -160,7 +161,7 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        private void SetData()
+        private async void SetData()
         {
 
             NotifyPropertyChanged("Name");
