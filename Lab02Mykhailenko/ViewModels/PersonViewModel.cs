@@ -63,9 +63,9 @@ namespace Lab02Mykhailenko.ViewModels
                 if (_person.Birthday != value)
                 {
                     _person.Birthday = value;
-                    //IsEnabled = false;
-                    //Task.Run(async () => await setAsynchronouData());
-                    //IsEnabled = true;
+                    IsEnabled = false;
+                    Task.Run(async () => await setAsynchronouData());
+                    IsEnabled = true;
                 }
             }
         }
@@ -171,15 +171,15 @@ namespace Lab02Mykhailenko.ViewModels
         }
         #endregion
 
-        //private async Task setAsynchronouData()
-        //{
-        //    await Task.Run(() => CorrectDate());
-        //    await Task.Run(() => BirthdayIsToday());
-        //    await Task.Run(() => IsAdult);
-        //    await Task.Run(() => SunSign);
-        //    await Task.Run(() => ChineseSign);
-        //    await Task.Run(() => IsBirthday);
-        //}
+        private async Task setAsynchronouData()
+        {
+            await Task.Run(() => CorrectDate());
+            await Task.Run(() => BirthdayIsToday());
+            await Task.Run(() => IsAdult);
+            await Task.Run(() => SunSign);
+            await Task.Run(() => ChineseSign);
+            await Task.Run(() => IsBirthday);
+        }
 
         public RelayCommand<object> SelectDateCommand
         {
@@ -189,9 +189,9 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        private async void SetData()
+        private void SetData()
         {
-            await Task.Delay(1000);
+
             NotifyPropertyChanged("Name");
             NotifyPropertyChanged("Surname");
             NotifyPropertyChanged("Email");
