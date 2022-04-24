@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab02Mykhailenko.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;

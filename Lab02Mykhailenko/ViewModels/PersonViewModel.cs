@@ -1,11 +1,8 @@
 ﻿using Lab02Mykhailenko.Models;
 using System;
 using System.ComponentModel;
-using System.Globalization;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Lab02Mykhailenko.ViewModels
 {
@@ -49,9 +46,16 @@ namespace Lab02Mykhailenko.ViewModels
             set 
             { 
                 _person.Email = value;
-                if (!CorrectEmail() && !_person.Email.Equals(""))
+                try
                 {
-                    throw new EmailException("Incorrect email", value);
+                    if (!CorrectEmail() && !_person.Email.Equals(""))
+                    {
+                        throw new EmailException("Email введено не правильно.", value);
+                    }
+                }
+                catch (EmailException ex)
+                {
+                    MessageBox.Show(ex.Message + $"\nНекоректне значення: {ex.Value}");
                 }
             }
         }
@@ -69,9 +73,16 @@ namespace Lab02Mykhailenko.ViewModels
                     IsEnabled = false;
                     Task.Run(async () => await setAsynchronouData());
                     IsEnabled = true;
-                    if (!CorrectDate())
+                    try
                     {
-                        throw new DateException("Incorrect date", value);
+                        if (!CorrectDate())
+                        {
+                            throw new DateException("Ви ввели не правильну дату народження!\nЛюдина може бути від 0 до 135 років!", value);
+                        }
+                    }
+                    catch (DateException ex)
+                    {
+                        MessageBox.Show(ex.Message + $"\nНекоректне значення: {ex.Value.ToString("d")}");
                     }
                 }
             }
@@ -179,7 +190,7 @@ namespace Lab02Mykhailenko.ViewModels
 
         public bool CorrectEmail()
         {
-            string email = Email;
+            string email = _person.Email;
             int count = 0;
             for (int i = 0; i < email.Length; i++)
             {
@@ -216,20 +227,9 @@ namespace Lab02Mykhailenko.ViewModels
 
         private void SetData()
         {
-            //CultureInfo cultureInfo = new CultureInfo(1);
-            //Validate(Birthday, cultureInfo);
-
-            if (!CorrectDate())
+            if (BirthdayIsToday())
             {
-                MessageBox.Show("Ви ввели не правильну дату народження!");
-            }
-            else
-            {
-                if (BirthdayIsToday())
-                {
-                    MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!");
-                }
-
+                MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!");
             }
 
             NotifyPropertyChanged("Name");
@@ -254,29 +254,5 @@ namespace Lab02Mykhailenko.ViewModels
         {
             return !String.IsNullOrWhiteSpace(_person.Name) && !String.IsNullOrWhiteSpace(_person.Surname) && !String.IsNullOrWhiteSpace(_person.Email);
         }
-
-        //public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-        //{
-        //    //try
-        //    //{
-        //    //   // DateTime date = Birthday;
-        //    //    if (((string)value).Length > 0)
-        //    //        Birthday = (DateTime)value;
-        //    //}
-        //    //catch (Exception e)
-        //    //{
-        //    //    return new ValidationResult(false, $"Illegal characters or {e.Message}");
-        //    //}
-        //    if (!CorrectEmail())
-        //    {
-        //        return new ValidationResult(true, "Email must contain @\n@ shouldn't be the last symbol");
-        //    }
-        //    if (!CorrectDate())
-        //    {
-        //        return new ValidationResult(false, "Date of birth cannot be in the future\nA person must be under 135 years of age");
-        //    }
-        //    return ValidationResult.ValidResult;
-        //}
-
     }
 }
