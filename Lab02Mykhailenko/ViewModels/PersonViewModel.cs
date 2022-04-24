@@ -1,18 +1,14 @@
 ﻿using Lab02Mykhailenko.Models;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Lab02Mykhailenko.ViewModels
 {
-
-    /*
-     + Обчислення повинні відбуватись асинхронно 
-    + Потрібно використовувати асинхронність в всіх місцях де можуть бути потенційні затримки часу виконання
-     */
-
 
     class PersonViewModel : INotifyPropertyChanged
     {
@@ -50,7 +46,14 @@ namespace Lab02Mykhailenko.ViewModels
                 if (CorrectDate()) { return _person.Email; }
                 return " ";
             }
-            set { _person.Email = value; }
+            set 
+            { 
+                _person.Email = value;
+                if (!CorrectEmail() && !_person.Email.Equals(""))
+                {
+                    throw new EmailException("Incorrect email", value);
+                }
+            }
         }
 
         public DateTime Birthday
@@ -66,6 +69,10 @@ namespace Lab02Mykhailenko.ViewModels
                     IsEnabled = false;
                     Task.Run(async () => await setAsynchronouData());
                     IsEnabled = true;
+                    if (!CorrectDate())
+                    {
+                        throw new DateException("Incorrect date", value);
+                    }
                 }
             }
         }
@@ -169,6 +176,24 @@ namespace Lab02Mykhailenko.ViewModels
             if (Birthday.Day == DateTime.Today.Day && Birthday.Month == DateTime.Today.Month) return true;
             return false;
         }
+
+        public bool CorrectEmail()
+        {
+            string email = Email;
+            int count = 0;
+            for (int i = 0; i < email.Length; i++)
+            {
+                if(email[i]=='@')
+                {
+                    count++;
+                    if(i== email.Length - 1)
+                        return false;
+                }
+            }
+            if (count == 1)
+                return true;
+            return false;
+        }
         #endregion
 
         private async Task setAsynchronouData()
@@ -191,15 +216,9 @@ namespace Lab02Mykhailenko.ViewModels
 
         private void SetData()
         {
-          //  await Task.Delay(1000);
-            NotifyPropertyChanged("Name");
-            NotifyPropertyChanged("Surname");
-            NotifyPropertyChanged("Email");
-            NotifyPropertyChanged("BirthdayToString");
-            NotifyPropertyChanged("IsAdult");
-            NotifyPropertyChanged("SunSign");
-            NotifyPropertyChanged("ChineseSign");
-            NotifyPropertyChanged("IsBirthday");
+            //CultureInfo cultureInfo = new CultureInfo(1);
+            //Validate(Birthday, cultureInfo);
+
             if (!CorrectDate())
             {
                 MessageBox.Show("Ви ввели не правильну дату народження!");
@@ -212,7 +231,19 @@ namespace Lab02Mykhailenko.ViewModels
                 }
 
             }
+
+            NotifyPropertyChanged("Name");
+            NotifyPropertyChanged("Surname");
+            NotifyPropertyChanged("Email");
+            NotifyPropertyChanged("BirthdayToString");
+            NotifyPropertyChanged("IsAdult");
+            NotifyPropertyChanged("SunSign");
+            NotifyPropertyChanged("ChineseSign");
+            NotifyPropertyChanged("IsBirthday");
+
+     
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(string info = null)
@@ -223,6 +254,29 @@ namespace Lab02Mykhailenko.ViewModels
         {
             return !String.IsNullOrWhiteSpace(_person.Name) && !String.IsNullOrWhiteSpace(_person.Surname) && !String.IsNullOrWhiteSpace(_person.Email);
         }
+
+        //public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        //{
+        //    //try
+        //    //{
+        //    //   // DateTime date = Birthday;
+        //    //    if (((string)value).Length > 0)
+        //    //        Birthday = (DateTime)value;
+        //    //}
+        //    //catch (Exception e)
+        //    //{
+        //    //    return new ValidationResult(false, $"Illegal characters or {e.Message}");
+        //    //}
+        //    if (!CorrectEmail())
+        //    {
+        //        return new ValidationResult(true, "Email must contain @\n@ shouldn't be the last symbol");
+        //    }
+        //    if (!CorrectDate())
+        //    {
+        //        return new ValidationResult(false, "Date of birth cannot be in the future\nA person must be under 135 years of age");
+        //    }
+        //    return ValidationResult.ValidResult;
+        //}
 
     }
 }
