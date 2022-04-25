@@ -45,13 +45,9 @@ namespace Lab02Mykhailenko.ViewModels
             }
             set 
             { 
-                _person.Email = value;
                 try
                 {
-                    if (!CorrectEmail() && !_person.Email.Equals(""))
-                    {
-                        throw new EmailException("Email введено не правильно.", value);
-                    }
+                    _person.Email = value;
                 }
                 catch (EmailException ex)
                 {
@@ -69,16 +65,10 @@ namespace Lab02Mykhailenko.ViewModels
             {
                 if (_person.Birthday != value)
                 {
-                    _person.Birthday = value;
-                    IsEnabled = false;
-                    Task.Run(async () => await setAsynchronouData());
-                    IsEnabled = true;
                     try
                     {
-                        if (!CorrectDate())
-                        {
-                            throw new DateException("Ви ввели не правильну дату народження!\nЛюдина може бути від 0 до 135 років!", value);
-                        }
+                        _person.Birthday = value;
+                        Task.Run(async () => await setAsynchronouData());
                     }
                     catch (DateException ex)
                     {
@@ -240,8 +230,7 @@ namespace Lab02Mykhailenko.ViewModels
             NotifyPropertyChanged("SunSign");
             NotifyPropertyChanged("ChineseSign");
             NotifyPropertyChanged("IsBirthday");
-
-     
+           
         }
 
 

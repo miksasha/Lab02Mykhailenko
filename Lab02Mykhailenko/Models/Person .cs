@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab02Mykhailenko.ViewModels;
+using System;
 
 namespace Lab02Mykhailenko.Models
 {
@@ -27,7 +28,17 @@ namespace Lab02Mykhailenko.Models
         public string Email
         {
             get { return _email; }
-            set { _email = value; }
+            set { 
+                if (!CorrectEmail(value) && !value.Equals(""))
+                {
+                    _email = "";
+                    throw new EmailException("Email введено не правильно.", value);
+                }
+                else {
+                    _email = value;
+                }
+                
+            }
         }
 
         public DateTime Birthday
@@ -40,6 +51,10 @@ namespace Lab02Mykhailenko.Models
                 if (_birthday != value)
                 {
                     _birthday = value;
+                    if (!CorrectDate())
+                    {
+                        throw new DateException("Ви ввели не правильну дату народження!\nЛюдина може бути від 0 до 135 років!", value);
+                    }
                 }
             }
         }
@@ -53,6 +68,7 @@ namespace Lab02Mykhailenko.Models
             _surname = surname;
             _email = email;
             _birthday = birthday;
+
         }
 
         //Ім’я, прізвище, адреса електронної пошти.
@@ -153,6 +169,40 @@ namespace Lab02Mykhailenko.Models
                 if (_birthday.Day == DateTime.Today.Day && _birthday.Month == DateTime.Today.Month) return true;
                 return false;
             }
+        }
+        #endregion
+
+        #region Check
+        public bool CorrectDate()
+        {
+            if (Birthday > DateTime.Today) return false;
+
+            DateTime today = DateTime.Today;
+            int age = today.Year - Birthday.Year;
+            if (today.Month - Birthday.Month < 0) --age;
+            if (today.Month - Birthday.Month == 0)
+                if (today.Day - Birthday.Day < 0) --age;
+
+
+            if (age > 135) return false;
+            return true;
+        }
+
+        public bool CorrectEmail(string email)
+        {
+            int count = 0;
+            for (int i = 0; i < email.Length; i++)
+            {
+                if (email[i] == '@')
+                {
+                    count++;
+                    if (i == email.Length - 1)
+                        return false;
+                }
+            }
+            if (count == 1)
+                return true;
+            return false;
         }
         #endregion
     }
