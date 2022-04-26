@@ -68,7 +68,7 @@ namespace Lab02Mykhailenko.ViewModels
                     try
                     {
                         _person.Birthday = value;
-                        Task.Run(async () => await setAsynchronouData());
+                        Task.Run(async () => await setAsynchronousData());
                     }
                     catch (DateException ex)
                     {
@@ -197,7 +197,7 @@ namespace Lab02Mykhailenko.ViewModels
         }
         #endregion
 
-        private async Task setAsynchronouData()
+        private async Task setAsynchronousData()
         {
             await Task.Run(() => CorrectDate());
             await Task.Run(() => BirthdayIsToday());
