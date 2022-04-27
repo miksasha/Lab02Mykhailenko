@@ -1,4 +1,5 @@
 ﻿using Lab02Mykhailenko.Models;
+using Lab02Mykhailenko.Server;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,10 +37,7 @@ namespace Lab02Mykhailenko.ViewModels
         #region Constructor
         public PeopleViewModel(Action gotoPersonView)
         {
-            People = new ObservableCollection<Person> {  
-                new Person("Марія", "Воловська", "mar@gmail.com", new DateTime(1999, 1, 4)),
-                new Person("Bob", "Gilbert", "bob@gmail.com"),
-                new Person("Lili", "Miklson", "lil@gmail.com") };
+            People = ServicePeople.People;
             _goToPersonView = gotoPersonView;
         }
         #endregion

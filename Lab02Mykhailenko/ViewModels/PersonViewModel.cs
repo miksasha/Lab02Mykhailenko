@@ -1,4 +1,5 @@
 ﻿using Lab02Mykhailenko.Models;
+using Lab02Mykhailenko.Server;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -247,10 +248,12 @@ namespace Lab02Mykhailenko.ViewModels
                 NotifyPropertyChanged("SunSign");
                 NotifyPropertyChanged("ChineseSign");
                 NotifyPropertyChanged("IsBirthday");
-               // var newPerson = new PeopleViewModel();
+                // var newPerson = new PeopleViewModel();
 
+                var service = new ServicePeople();
+                service.addNewPerson(_person);
                 _goToAllPeople.Invoke();
-                
+
             }
         }
 

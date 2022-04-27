@@ -9,13 +9,13 @@ namespace Lab02Mykhailenko.Server
 {
     class ServicePeople
     {
-        private static ObservableCollection<Person> _people = new ObservableCollection<Person>()
-        {
-            new Person("A","B", new DateTime(2000,8,25))
-        };
+        private static ObservableCollection<Person> _people = new ObservableCollection<Person> {  
+                new Person("Марія", "Воловська", "mar@gmail.com", new DateTime(1999, 1, 4)),
+                new Person("Bob", "Gilbert", "bob@gmail.com"),
+                new Person("Lili", "Miklson", "lil@gmail.com") };
 
-        #region Property
-        public static ObservableCollection<Person> People
+    #region Property
+    public static ObservableCollection<Person> People
         {
             get { return _people; }
             set
