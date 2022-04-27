@@ -32,7 +32,10 @@ namespace Lab02Mykhailenko.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+      
         #endregion
+
 
         #region Constructor
         public PeopleViewModel(Action gotoPersonView)
