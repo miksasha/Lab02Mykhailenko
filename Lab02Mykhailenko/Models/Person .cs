@@ -3,7 +3,7 @@ using System;
 
 namespace Lab02Mykhailenko.Models
 {
-    class Person
+    public class Person
     {
         #region Fields
         private string _name;

@@ -10,7 +10,12 @@ namespace Lab02Mykhailenko.Views
         public PersonControl()
         {
             InitializeComponent();
-            DataContext = _personViewModel = new PersonViewModel();
+            DataContext = _personViewModel = new PersonViewModel(GoToAllPeople);
+        }
+
+        public void GoToAllPeople()
+        {
+            Content = new AllPeople();
         }
     }
 }

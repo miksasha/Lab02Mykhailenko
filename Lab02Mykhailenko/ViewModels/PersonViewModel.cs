@@ -12,9 +12,13 @@ namespace Lab02Mykhailenko.ViewModels
         #region Fields
         private Person _person = new Person(null, null, null);
         private RelayCommand<object> _selectDateCommand;
+        private Action _goToAllPeople;
         private bool _isEnabled = true;
         #endregion
-
+        public PersonViewModel(Action gotoAllPeople)
+        {
+            _goToAllPeople = gotoAllPeople;
+        }
         #region Properties
         public string Name
         {
@@ -217,20 +221,37 @@ namespace Lab02Mykhailenko.ViewModels
 
         private void SetData()
         {
-            if (BirthdayIsToday())
+            if (!CorrectDate())
             {
-                MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!");
+                try
+                {
+                    throw new DateException("Ви ввели не правильну дату народження!\nЛюдина може бути від 0 до 135 років!", Birthday);
+                }
+                catch (DateException ex)
+                {
+                    MessageBox.Show(ex.Message + $"\nНекоректне значення: {ex.Value.ToString("d")}");
+                }
             }
+            else
+            {
+                if (BirthdayIsToday())
+                {
+                    MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!");
+                }
 
-            NotifyPropertyChanged("Name");
-            NotifyPropertyChanged("Surname");
-            NotifyPropertyChanged("Email");
-            NotifyPropertyChanged("BirthdayToString");
-            NotifyPropertyChanged("IsAdult");
-            NotifyPropertyChanged("SunSign");
-            NotifyPropertyChanged("ChineseSign");
-            NotifyPropertyChanged("IsBirthday");
-           
+                NotifyPropertyChanged("Name");
+                NotifyPropertyChanged("Surname");
+                NotifyPropertyChanged("Email");
+                NotifyPropertyChanged("BirthdayToString");
+                NotifyPropertyChanged("IsAdult");
+                NotifyPropertyChanged("SunSign");
+                NotifyPropertyChanged("ChineseSign");
+                NotifyPropertyChanged("IsBirthday");
+               // var newPerson = new PeopleViewModel();
+
+                _goToAllPeople.Invoke();
+                
+            }
         }
 
 

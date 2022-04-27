@@ -7,11 +7,11 @@
              xmlns:viewmodels="clr-namespace:Lab02Mykhailenko.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewmodels:PersonViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" d:Background="Beige"
+             d:DesignHeight="450" d:DesignWidth="400" d:Background="Beige"
              IsEnabled="{Binding IsEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
     
     
-    <Grid HorizontalAlignment="Center" Width="780" >
+    <Grid HorizontalAlignment="Center" Width="380" >
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition />
@@ -26,12 +26,10 @@
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="235" />
-        <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock FontSize="20" Grid.Row="0" Margin="5" Grid.Column="2" Grid.ColumnSpan="2" Foreground="Teal" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <TextBlock FontSize="20" Grid.Row="0" Margin="5" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Teal" VerticalAlignment="Center" HorizontalAlignment="Center"
          Text="Інформація про користувача" />
         <TextBlock FontSize="20" Grid.Row="1" Margin="5" Grid.Column="0" Foreground="Teal"
          Text="Ім'я: "/>
@@ -50,41 +48,6 @@
                   Text="{Binding Email, Mode=OneWayToSource}"/>
         <DatePicker IsDropDownOpen="True" SelectedDateFormat="Short"  Grid.Row="7" Grid.Column="1" 
                   SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
-        <Button  Grid.Row="9" Margin="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Продовжити" Command="{Binding SelectDateCommand}"/>
-
-        <TextBlock FontSize="20" Grid.Row="1" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Ім'я: "/>
-        <TextBlock FontSize="20" Grid.Row="2" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Прізвище: "/>
-        <TextBlock FontSize="20" Grid.Row="3" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Email: "/>
-        <TextBlock FontSize="20" Grid.Row="4" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Дата народження: "/>
-        <TextBlock FontSize="20" Grid.Row="5" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Чи дорослий? "/>
-        <TextBlock FontSize="20" Grid.Row="6" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Західна астрологія: "/>
-        <TextBlock FontSize="20" Grid.Row="7" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Китайська астрологія: "/>
-        <TextBlock FontSize="20" Grid.Row="8" Margin="5" Grid.Column="2" Foreground="Teal"
-         Text="Чи сьогодні народився? "/>
-        
-        <TextBlock FontSize="20" Grid.Row="1" Margin="5" Grid.Column="3" Foreground="Teal"
-          Text="{Binding Name, Mode=TwoWay}"/>
-        <TextBlock FontSize="20" Grid.Row="2" Margin="5" Grid.Column="3" Foreground="Teal"
-         Text="{Binding Surname, Mode=TwoWay}"/>
-        <TextBlock FontSize="20" Grid.Row="3" Margin="5" Grid.Column="3" Foreground="Teal"
-         Text="{Binding Email, Mode=TwoWay}"/>
-        <TextBlock FontSize="20" Grid.Row="4" Margin="5" Grid.Column="3" Foreground="Teal"
-         Text="{Binding BirthdayToString, Mode=OneWay}"/>
-        <TextBlock FontSize="20" Grid.Row="5" Margin="5" Grid.Column="3" Foreground="Teal"
-          Text="{Binding IsAdult, Mode=OneWay}"/>
-        <TextBlock FontSize="20" Grid.Row="6" Margin="5" Grid.Column="3" Foreground="Teal"
-          Text="{Binding SunSign, Mode=OneWay}"/>
-        <TextBlock FontSize="20" Grid.Row="7" Margin="5" Grid.Column="3" Foreground="Teal"
-          Text="{Binding ChineseSign, Mode=OneWay}"/>
-        <TextBlock FontSize="20" Grid.Row="8" Margin="5" Grid.Column="3" Foreground="Teal"
-          Text="{Binding IsBirthday, Mode=OneWay}"/>
-
+        <Button  Grid.Row="9" Margin="5" Grid.Column="0" Grid.ColumnSpan="2"  VerticalAlignment="Center" Width="200" Height="30" Content="Продовжити" Command="{Binding SelectDateCommand}"/>
     </Grid>
 </UserControl>
