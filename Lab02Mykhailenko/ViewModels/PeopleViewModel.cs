@@ -15,6 +15,8 @@ namespace Lab02Mykhailenko.ViewModels
         #region Fields
         private ObservableCollection<Person> _people;
         private RelayCommand<object> _add;
+        private RelayCommand<object> _edit;
+        private RelayCommand<object> _delete;
         private Action _goToPersonView;
         #endregion
 
@@ -48,6 +50,20 @@ namespace Lab02Mykhailenko.ViewModels
                 return _add ??= new RelayCommand<object>(_ => OpenAdditionWindow());
             }
         }
+        public RelayCommand<object> EditPersonCommand
+        {
+            get
+            {
+                return _edit ??= new RelayCommand<object>(_ => OpenAdditionWindow());
+            }
+        }
+        public RelayCommand<object> DeletePersonCommand
+        {
+            get
+            {
+                return _delete ??= new RelayCommand<object>(_ => OpenAdditionWindow());
+            }
+        }
 
         private void OpenAdditionWindow()
         {
@@ -75,8 +91,5 @@ namespace Lab02Mykhailenko.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
-     
     }
 }
