@@ -71,21 +71,6 @@ namespace Lab02Mykhailenko.ViewModels
             _goToPersonView.Invoke();
         }
 
-        public void addNewPerson(Person person)
-        {
-            bool alreadyExist = false;
-            foreach (var per in _people)
-            {
-                if(per.Name.Equals(person.Name) && per.Surname.Equals(person.Surname)
-                    && per.Email.Equals(person.Email) && per.Birthday.Equals(person.Birthday))
-                { alreadyExist = true; break;}
-            }
-            if(!alreadyExist)
-            {
-                _people.Add(person);
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
