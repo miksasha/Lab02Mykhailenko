@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Lab02Mykhailenko.ViewModels
@@ -55,14 +56,16 @@ namespace Lab02Mykhailenko.ViewModels
         {
             get
             {
-                return _edit ??= new RelayCommand<object>(_ => OpenAdditionWindow());
+                return _edit ??= new RelayCommand<object>(_ => OpenEditionWindow());
             }
         }
+        public Person MyProperty { get; set; }
+
         public RelayCommand<object> DeletePersonCommand
         {
             get
             {
-                return _delete ??= new RelayCommand<object>(_ => OpenAdditionWindow());
+                return _delete ??= new RelayCommand<object>(_ => DeletePerson());
             }
         }
 
@@ -71,7 +74,25 @@ namespace Lab02Mykhailenko.ViewModels
             //open window for add new person
             _goToPersonView.Invoke();
         }
+        private void OpenEditionWindow()
+        {
+            MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!" + MyProperty.Name);
+            //var personViewmodel = new PersonViewModel()
+            //{
+            //    Name = MyProperty.Name,
+            //    Surname = MyProperty.Surname,
+            //    Birthday = MyProperty.Birthday
+            //};
 
+            //var control = new PersonControl(personViewmodel);
+            //var editWindow = new PersonEditWindow(control);
+
+            //editWindow.Show();
+        }
+        private void DeletePerson()
+        {
+            //delete this person
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
