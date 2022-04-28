@@ -1,6 +1,7 @@
 ﻿using Lab02Mykhailenko.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -10,12 +11,21 @@ namespace Lab02Mykhailenko.Repositories
     class FileRepository
     {
         private static readonly string BaseFolder = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Mykhailenko", "People");
+        private static ObservableCollection<Person> _people = new ObservableCollection<Person> {
+                    new Person("Марія", "Воловська", "mar@gmail.com", new DateTime(1999, 1, 4)),
+                    new Person("Bob", "Gilbert", "bob@gmaom", new DateTime(1999, 1, 4)),
+                    new Person("Lili", "Miklson", "lil@gmail.com", new DateTime(1999, 1, 4)) };
 
         public FileRepository()
         {
             if(!Directory.Exists(BaseFolder))
             {
                 Directory.CreateDirectory(BaseFolder);
+            }
+
+            foreach(Person p in _people)
+            {
+                _ = AddOrUpdateAsync(p);
             }
         }
 
@@ -27,7 +37,6 @@ namespace Lab02Mykhailenko.Repositories
             {
                 await sw.WriteAsync(stringObj);
             }
-           
         }
 
         public async Task DeleteAsync(Person person)
@@ -36,7 +45,6 @@ namespace Lab02Mykhailenko.Repositories
 
             if (File.Exists(filePath))
                 File.Delete(filePath);
-
         }
 
         public async Task<Person> GetAsync(string email)

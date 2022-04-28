@@ -18,9 +18,9 @@
         <DataGrid x:Name="peopleGrid" SelectedItem="{Binding Path=MyProperty}" Grid.Row="0" Grid.Column="0" AutoGenerateColumns="False" ItemsSource="{Binding Path=People, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Ім'я" >
-                    <DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate >
-                            <TextBox Text="{Binding Name, Mode=TwoWay}" />
+                            <TextBox  Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -28,7 +28,7 @@
                 <DataGridTemplateColumn Header="Прізвище" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >
-                            <TextBox Text="{Binding Surname, Mode=TwoWay}" />
+                            <TextBox Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -36,7 +36,7 @@
                 <DataGridTemplateColumn Header="Email" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >
-                            <TextBox Text="{Binding Email, Mode=TwoWay}" />
+                            <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -45,7 +45,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >
                             <DatePicker SelectedDateFormat="Short" 
-                  SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
+                  SelectedDate="{Binding Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -53,7 +53,15 @@
                 <DataGridTextColumn Header="Західна астрологія:" Binding="{Binding SunSign}" />
                 <DataGridTextColumn Header="Китайська астрологія:" Binding="{Binding ChineseSign}" />
                 <DataGridTextColumn Header="Чи сьогодні народився?" Binding="{Binding IsBirthday}" />
-
+                <DataGridTemplateColumn Header="Редагувати" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button Name="xml_btn_001" 
+                                     Content="Редагувати" 
+                                     Command="{Binding Path=DataContext.EditPersonCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Видалити" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >

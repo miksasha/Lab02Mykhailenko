@@ -9,21 +9,6 @@ namespace Lab02Mykhailenko.Server
     class PeopleService
     {
         private static FileRepository _repository = new FileRepository();
-        //private static ObservableCollection<Person> _people = new ObservableCollection<Person> {
-        //            new Person("Марія", "Воловська", "mar@gmail.com", new DateTime(1999, 1, 4)),
-        //            new Person("Bob", "Gilbert", "bob@gmail.com"),
-        //            new Person("Lili", "Miklson", "lil@gmail.com") };
-        #region Property
-        //public static ObservableCollection<Person> People
-        //{
-        //    get { return _people; }
-        //    set
-        //    {
-        //        if (_people == value) return;
-        //        _people = value;
-        //    }
-        //}
-        #endregion
 
         public async Task<Person> AuthenticateAsync(Person person)
         {

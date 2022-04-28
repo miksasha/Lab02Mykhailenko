@@ -1,8 +1,6 @@
 ﻿using Lab02Mykhailenko.Models;
 using Lab02Mykhailenko.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Lab02Mykhailenko.Services
 {
@@ -10,7 +8,7 @@ namespace Lab02Mykhailenko.Services
     {
         private static FileRepository _repository = new FileRepository();
 
-        public List<Person> GetAllPeople()
+        public IEnumerable<Person> GetAllPeople()
         {
             var res = new List<Person>();
             foreach(var user in _repository.GetAll())
@@ -21,6 +19,10 @@ namespace Lab02Mykhailenko.Services
             return res;
         }
 
+        public async void Edit(Person person)
+        {
+            await _repository.AddOrUpdateAsync(person);
+        }
         public async void Delete(Person person)
         {
             await _repository.DeleteAsync(person);
