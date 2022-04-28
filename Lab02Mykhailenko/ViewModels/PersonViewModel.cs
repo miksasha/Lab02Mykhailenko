@@ -224,7 +224,7 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        private void SetData()
+        private async void SetData()
         {
             if (!CorrectDate())
             {
@@ -253,8 +253,10 @@ namespace Lab02Mykhailenko.ViewModels
                 NotifyPropertyChanged("ChineseSign");
                 NotifyPropertyChanged("IsBirthday");
 
-                var service = new PeopleService();
-                service.AddNewPerson(_person);
+                var peopleService = new PeopleService();
+                bool newPerson = await peopleService.AddNewPersonAsync(_person);
+                //var service = new PeopleService();
+                //service.AddNewPerson(_person);
                 _goToAllPeople.Invoke();
 
             }

@@ -34,7 +34,7 @@ namespace Lab02Mykhailenko.ViewModels
         #region Constructor
         public PeopleViewModel(Action gotoPersonView)
         {
-            People = PeopleService.People;
+            //People = PeopleService.People;
             _goToPersonView = gotoPersonView;
         }
         #endregion
@@ -63,8 +63,8 @@ namespace Lab02Mykhailenko.ViewModels
         private void DeletePerson()
         {
             //delete this person
-            var service = new PeopleService();
-            service.DeleteNewPerson(MyProperty);
+            //var service = new PeopleService();
+            //service.DeleteNewPerson(MyProperty);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
