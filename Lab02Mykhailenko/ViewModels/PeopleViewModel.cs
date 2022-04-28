@@ -1,5 +1,4 @@
-﻿using Lab02Mykhailenko.Models;
-using Lab02Mykhailenko.Server;
+﻿using Lab02Mykhailenko.Server;
 using Lab02Mykhailenko.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -13,18 +12,18 @@ namespace Lab02Mykhailenko.ViewModels
     class PeopleViewModel 
     {
         #region Fields
-        private ObservableCollection<Person> _people;
+        private ObservableCollection<PersonViewModel> _people;
         private PersonService _personService;
         private RelayCommand<object> _add;
         private RelayCommand<object> _edit;
         private RelayCommand<object> _delete;
         private Action _goToPersonView;
-        private Person _curentPerson;
+        private PersonViewModel _curentPerson;
         private int countClick = 0;
         #endregion
 
         #region Property
-        public ObservableCollection<Person> People
+        public ObservableCollection<PersonViewModel> People
         {
             get { return _people; }
             set
@@ -35,7 +34,7 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        public Person MyProperty { 
+        public PersonViewModel MyProperty { 
             get
             { return _curentPerson; }
             set
@@ -51,7 +50,7 @@ namespace Lab02Mykhailenko.ViewModels
         public PeopleViewModel(Action gotoPersonView)
         {
             _personService = new PersonService();
-            People = new ObservableCollection<Person>(_personService.GetAllPeople());
+            People = new ObservableCollection<PersonViewModel>(_personService.GetAllPeople());
             _goToPersonView = gotoPersonView;
         }
         #endregion

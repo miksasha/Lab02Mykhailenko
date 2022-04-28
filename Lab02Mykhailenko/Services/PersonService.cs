@@ -1,5 +1,6 @@
 ﻿using Lab02Mykhailenko.Models;
 using Lab02Mykhailenko.Repositories;
+using Lab02Mykhailenko.ViewModels;
 using System.Collections.Generic;
 
 namespace Lab02Mykhailenko.Services
@@ -8,9 +9,9 @@ namespace Lab02Mykhailenko.Services
     {
         private static FileRepository _repository = new FileRepository();
 
-        public IEnumerable<Person> GetAllPeople()
+        public IEnumerable<PersonViewModel> GetAllPeople()
         {
-            var res = new List<Person>();
+            var res = new List<PersonViewModel>();
             foreach(var user in _repository.GetAll())
             {
                 res.Add(user);
@@ -19,11 +20,11 @@ namespace Lab02Mykhailenko.Services
             return res;
         }
 
-        public async void Edit(Person person)
+        public async void Edit(PersonViewModel person)
         {
             await _repository.AddOrUpdateAsync(person);
         }
-        public async void Delete(Person person)
+        public async void Delete(PersonViewModel person)
         {
             await _repository.DeleteAsync(person);
         }

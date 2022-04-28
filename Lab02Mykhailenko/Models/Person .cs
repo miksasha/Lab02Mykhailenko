@@ -11,13 +11,15 @@ namespace Lab02Mykhailenko.Models
         private string _surname;
         private string _email;
         private DateTime _birthday;
+        private Guid _guid;
         #endregion
 
         #region Properties
-        public string Name 
-        { 
-            get { return _name; } 
-            set { _name = value; } 
+        public Guid Guid { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
         }
 
         public string Surname
@@ -29,16 +31,18 @@ namespace Lab02Mykhailenko.Models
         public string Email
         {
             get { return _email; }
-            set { 
+            set
+            {
                 if (!CorrectEmail(value) && !value.Equals(""))
                 {
                     _email = "";
                     throw new EmailException("Email введено не правильно.", value);
                 }
-                else {
+                else
+                {
                     _email = value;
                 }
-                
+
             }
         }
 
@@ -56,6 +60,8 @@ namespace Lab02Mykhailenko.Models
                     {
                         throw new DateException("Ви ввели не правильну дату народження!\nЛюдина може бути від 0 до 135 років!", value);
                     }
+
+                    SetIsAdult(_birthday);
                 }
             }
         }
@@ -66,13 +72,13 @@ namespace Lab02Mykhailenko.Models
         public Person()
         {
         }
-        public Person(string name, string surname, string email, DateTime birthday)
+        public Person(string name, string surname, string email, DateTime birthday, Guid guid)
         {
             _name = name;
             _surname = surname;
             _email = email;
             _birthday = birthday;
-
+            _guid = guid;
         }
 
         //Ім’я, прізвище, адреса електронної пошти.
@@ -92,22 +98,11 @@ namespace Lab02Mykhailenko.Models
             _email = null;
             _birthday = birthday;
         }
+        public bool IsAdult { get; set; }
+
         #endregion
 
         #region Read-only properties
-        public bool IsAdult
-        {
-            get 
-            {
-                DateTime today = DateTime.Today;
-                int age = today.Year - _birthday.Year;
-                if (today.Month - _birthday.Month < 0) --age;
-                if (today.Month - _birthday.Month == 0 && today.Day - _birthday.Day < 0) --age;
-
-                if (age >= 18) return true;
-                return false; 
-            }
-        }
 
         public string SunSign
         {
@@ -207,6 +202,21 @@ namespace Lab02Mykhailenko.Models
             if (count == 1)
                 return true;
             return false;
+        }
+
+        private void SetIsAdult(DateTime birthday)
+        {
+            DateTime today = DateTime.Today;
+            int age = today.Year - birthday.Year;
+            if (today.Month - birthday.Month < 0) --age;
+            if (today.Month - birthday.Month == 0 && today.Day - birthday.Day < 0) --age;
+
+            if (age >= 18)
+            {
+                IsAdult = true;
+            };
+
+            IsAdult = false;
         }
         #endregion
     }

@@ -15,7 +15,7 @@
             <RowDefinition />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <DataGrid x:Name="peopleGrid" SelectedItem="{Binding Path=MyProperty}" Grid.Row="0" Grid.Column="0" AutoGenerateColumns="False" ItemsSource="{Binding Path=People, Mode=TwoWay}">
+        <DataGrid x:Name="peopleGrid" SelectedItem="{Binding Path=MyProperty}" Grid.Row="0" Grid.Column="0" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=People, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Ім'я" >
                     <DataGridTemplateColumn.CellTemplate >
@@ -49,10 +49,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Чи дорослий?" Binding="{Binding IsAdult}"/>
-                <DataGridTextColumn Header="Західна астрологія:" Binding="{Binding SunSign}" />
-                <DataGridTextColumn Header="Китайська астрологія:" Binding="{Binding ChineseSign}" />
-                <DataGridTextColumn Header="Чи сьогодні народився?" Binding="{Binding IsBirthday}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Чи дорослий?" Binding="{Binding IsAdult}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Західна астрологія:" Binding="{Binding SunSign}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Китайська астрологія:" Binding="{Binding ChineseSign}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Чи сьогодні народився?" Binding="{Binding IsBirthday}" />
                 <DataGridTemplateColumn Header="Редагувати" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >

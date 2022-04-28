@@ -21,6 +21,12 @@ namespace Lab02Mykhailenko.ViewModels
         public PersonViewModel(Action gotoAllPeople)
         {
             _goToAllPeople = gotoAllPeople;
+            Guid = Guid.NewGuid();
+        }
+
+        public PersonViewModel()
+        {
+            Guid = Guid.NewGuid();
         }
         #endregion
 
@@ -83,8 +89,24 @@ namespace Lab02Mykhailenko.ViewModels
                     {
                         MessageBox.Show(ex.Message + $"\nНекоректне значення: {ex.Value.ToString("d")}");
                     }
+
+                    SetIsAdult();
+                    NotifyPropertyChanged("IsAdult");
+                    NotifyPropertyChanged("SunSign");
+                    NotifyPropertyChanged("ChineseSign");
+                    NotifyPropertyChanged("IsBirthday");
                 }
             }
+        }
+
+        private void SetIsAdult()
+        {
+            DateTime today = DateTime.Today;
+            int age = today.Year - Birthday.Year;
+            if (today.Month - Birthday.Month < 0) --age;
+            if (today.Month - Birthday.Month == 0 && today.Day - Birthday.Day < 0) --age;
+
+            IsAdult = age > 18;
         }
 
         public string BirthdayToString
@@ -96,29 +118,8 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        public string IsAdultBool
-        {
-            get {
-                if (CorrectDate())
-                {
-                    if (_person.IsAdult)
-                    return "Так";
-                return "Ні";
-                }
-                return " ";
-            }
-
-        }
-
-        public string IsAdult
-        {
-            get
-            {
-                if (CorrectDate()) { return IsAdultBool; }
-                return " ";
-            }
-
-        }
+        public bool IsAdult { get; set; }
+        
 
         public string SunSign
         {
@@ -224,6 +225,8 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
+        public Guid Guid { get; set; }
+
         private async void SetData()
         {
             if (!CorrectDate())
@@ -254,7 +257,7 @@ namespace Lab02Mykhailenko.ViewModels
                 NotifyPropertyChanged("IsBirthday");
 
                 var peopleService = new PeopleService();
-                bool newPerson = await peopleService.AddNewPersonAsync(_person);
+                bool newPerson = await peopleService.AddNewPersonAsync(this);
                 if(!newPerson)
                 {
                     MessageBox.Show("Людина з таким email вже існує");
