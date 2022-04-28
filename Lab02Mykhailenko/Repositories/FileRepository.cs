@@ -35,7 +35,7 @@ namespace Lab02Mykhailenko.Repositories
 
             string filePath = Path.Combine(BaseFolder, email);
 
-            if (!File.Exists(filePath))
+            if (File.Exists(filePath))
                 return null;
 
             using (StreamReader sr= new StreamReader(filePath))
