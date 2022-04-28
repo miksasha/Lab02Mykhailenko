@@ -17,24 +17,43 @@
         </Grid.RowDefinitions>
         <DataGrid x:Name="peopleGrid" SelectedItem="{Binding Path=MyProperty}" Grid.Row="0" Grid.Column="0" AutoGenerateColumns="False" ItemsSource="{Binding Path=People}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ім'я"  Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Прізвище" Binding="{Binding Surname}"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Дата народження" Binding="{Binding Birthday}"/>
+                <DataGridTemplateColumn Header="Ім'я" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBox Text="{Binding Name, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Прізвище" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBox Text="{Binding Surname, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Email" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBox Text="{Binding Email, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Дата народження" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <DatePicker SelectedDateFormat="Short" 
+                  SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Чи дорослий?" Binding="{Binding IsAdult}"/>
                 <DataGridTextColumn Header="Західна астрологія:" Binding="{Binding SunSign}" />
                 <DataGridTextColumn Header="Китайська астрологія:" Binding="{Binding ChineseSign}" />
                 <DataGridTextColumn Header="Чи сьогодні народився?" Binding="{Binding IsBirthday}" />
 
-                <DataGridTemplateColumn Header="Редагувати" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate >
-                            <Button Name="xml_btn_001" 
-                                     Content="Редагувати" 
-                                     Command="{Binding Path=DataContext.EditPersonCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Видалити" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >

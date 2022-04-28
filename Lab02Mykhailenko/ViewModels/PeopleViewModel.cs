@@ -1,11 +1,9 @@
 ﻿using Lab02Mykhailenko.Models;
 using Lab02Mykhailenko.Server;
-using Lab02Mykhailenko.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 
 namespace Lab02Mykhailenko.ViewModels
 {
@@ -14,7 +12,6 @@ namespace Lab02Mykhailenko.ViewModels
         #region Fields
         private ObservableCollection<Person> _people;
         private RelayCommand<object> _add;
-        private RelayCommand<object> _edit;
         private RelayCommand<object> _delete;
         private Action _goToPersonView;
         #endregion
@@ -48,13 +45,6 @@ namespace Lab02Mykhailenko.ViewModels
                 return _add ??= new RelayCommand<object>(_ => OpenAdditionWindow());
             }
         }
-        public RelayCommand<object> EditPersonCommand
-        {
-            get
-            {
-                return _edit ??= new RelayCommand<object>(_ => OpenEditionWindow());
-            }
-        }
 
         public RelayCommand<object> DeletePersonCommand
         {
@@ -69,17 +59,7 @@ namespace Lab02Mykhailenko.ViewModels
             //open window for add new person
             _goToPersonView.Invoke();
         }
-        private void OpenEditionWindow()
-        {
-            
-            MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!" + MyProperty.Name);
-            //var personViewmodel = new PersonViewModel()
-            //{
-            //    Name = MyProperty.Name,
-            //    Surname = MyProperty.Surname,
-            //    Birthday = MyProperty.Birthday
-            //};
-        }
+      
         private void DeletePerson()
         {
             //delete this person
