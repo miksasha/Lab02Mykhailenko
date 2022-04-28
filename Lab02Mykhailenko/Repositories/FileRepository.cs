@@ -1,5 +1,6 @@
 ﻿using Lab02Mykhailenko.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace Lab02Mykhailenko.Repositories
 
             string filePath = Path.Combine(BaseFolder, email);
 
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
                 return null;
 
             using (StreamReader sr= new StreamReader(filePath))
@@ -43,7 +44,26 @@ namespace Lab02Mykhailenko.Repositories
                 stringObj = await sr.ReadToEndAsync();
             }
 
+            //повертаємо, якщо людина вже існує
             return JsonSerializer.Deserialize<Person>(stringObj);
+        }
+
+        public List<Person> GetAll()
+        {
+            var res = new List<Person>();
+
+            foreach(var file in Directory.EnumerateFiles(BaseFolder))
+            {
+                string stringObj = null;
+
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    stringObj = sr.ReadToEnd();
+                }
+
+                res.Add(JsonSerializer.Deserialize<Person>(stringObj));
+            }
+            return res;
         }
     }
 }

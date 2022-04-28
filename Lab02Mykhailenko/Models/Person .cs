@@ -3,6 +3,7 @@ using System;
 
 namespace Lab02Mykhailenko.Models
 {
+    [Serializable]
     public class Person
     {
         #region Fields
@@ -62,6 +63,9 @@ namespace Lab02Mykhailenko.Models
 
         #region Constructors
         //Всі чотири параметри
+        public Person()
+        {
+        }
         public Person(string name, string surname, string email, DateTime birthday)
         {
             _name = name;

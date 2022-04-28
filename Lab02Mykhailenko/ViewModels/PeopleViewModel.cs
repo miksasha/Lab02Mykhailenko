@@ -1,5 +1,6 @@
 ﻿using Lab02Mykhailenko.Models;
 using Lab02Mykhailenko.Server;
+using Lab02Mykhailenko.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace Lab02Mykhailenko.ViewModels
     {
         #region Fields
         private ObservableCollection<Person> _people;
+        private PersonService _personService;
         private RelayCommand<object> _add;
         private RelayCommand<object> _delete;
         private Action _goToPersonView;
@@ -34,7 +36,8 @@ namespace Lab02Mykhailenko.ViewModels
         #region Constructor
         public PeopleViewModel(Action gotoPersonView)
         {
-            //People = PeopleService.People;
+            _personService = new PersonService();
+            People = new ObservableCollection<Person>(_personService.GetAllPeople());
             _goToPersonView = gotoPersonView;
         }
         #endregion

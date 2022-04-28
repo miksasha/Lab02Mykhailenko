@@ -255,6 +255,10 @@ namespace Lab02Mykhailenko.ViewModels
 
                 var peopleService = new PeopleService();
                 bool newPerson = await peopleService.AddNewPersonAsync(_person);
+                if(!newPerson)
+                {
+                    MessageBox.Show("Людина з таким email вже існує");
+                }
                 //var service = new PeopleService();
                 //service.AddNewPerson(_person);
                 _goToAllPeople.Invoke();
