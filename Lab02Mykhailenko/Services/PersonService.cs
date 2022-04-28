@@ -20,5 +20,10 @@ namespace Lab02Mykhailenko.Services
 
             return res;
         }
+
+        public async void Delete(Person person)
+        {
+            await _repository.DeleteAsync(person);
+        }
     }
 }

@@ -30,6 +30,15 @@ namespace Lab02Mykhailenko.Repositories
            
         }
 
+        public async Task DeleteAsync(Person person)
+        {
+            string filePath = Path.Combine(BaseFolder, person.Email);
+
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+
+        }
+
         public async Task<Person> GetAsync(string email)
         {
             string stringObj = null;

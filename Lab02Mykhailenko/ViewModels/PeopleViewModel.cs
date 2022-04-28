@@ -65,9 +65,8 @@ namespace Lab02Mykhailenko.ViewModels
       
         private void DeletePerson()
         {
-            //delete this person
-            //var service = new PeopleService();
-            //service.DeleteNewPerson(MyProperty);
+            _personService.Delete(MyProperty);
+            People.Remove(MyProperty);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
