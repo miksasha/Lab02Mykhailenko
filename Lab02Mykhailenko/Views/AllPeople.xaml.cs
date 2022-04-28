@@ -1,4 +1,5 @@
-﻿using Lab02Mykhailenko.ViewModels;
+﻿using Lab02Mykhailenko.Models;
+using Lab02Mykhailenko.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,10 +24,10 @@ namespace Lab02Mykhailenko.Views
         public AllPeople()
         {
             InitializeComponent();
-            DataContext = _peopleViewModel = new PeopleViewModel(GoToPersonControl);
+            DataContext = _peopleViewModel = new PeopleViewModel(GoToPersonControlAdd);
         }
 
-        public void GoToPersonControl()
+        public void GoToPersonControlAdd()
         {
             Content = new PersonControl();
         }

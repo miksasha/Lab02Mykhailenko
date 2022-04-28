@@ -30,15 +30,24 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >
                             <Button Name="xml_btn_001" 
-                                     Content="btn" 
+                                     Content="Редагувати" 
                                      Command="{Binding Path=DataContext.EditPersonCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Видалити" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button Name="xml_btn_001" 
+                                     Content="Видалити" 
+                                     Command="{Binding Path=DataContext.DeletePersonCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button  Grid.Row="1" Margin="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Content="Додати персону" Command="{Binding AddPersonCommand}"/>
+        <Button  Grid.Row="1" Margin="5" Grid.Column="1" VerticalAlignment="Center" Width="200" Height="30" Content="Додати персону" Command="{Binding AddPersonCommand}"/>
 
     </Grid>
 </UserControl>

@@ -1,14 +1,11 @@
 ﻿using Lab02Mykhailenko.Models;
 using Lab02Mykhailenko.Server;
+using Lab02Mykhailenko.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Lab02Mykhailenko.ViewModels
 {
@@ -34,14 +31,13 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-      
+        public Person MyProperty { get; set; }
         #endregion
-
 
         #region Constructor
         public PeopleViewModel(Action gotoPersonView)
         {
-            People = ServicePeople.People;
+            People = PeopleService.People;
             _goToPersonView = gotoPersonView;
         }
         #endregion
@@ -59,7 +55,6 @@ namespace Lab02Mykhailenko.ViewModels
                 return _edit ??= new RelayCommand<object>(_ => OpenEditionWindow());
             }
         }
-        public Person MyProperty { get; set; }
 
         public RelayCommand<object> DeletePersonCommand
         {
@@ -76,6 +71,7 @@ namespace Lab02Mykhailenko.ViewModels
         }
         private void OpenEditionWindow()
         {
+            
             MessageBox.Show("Вітаємо з Днем народження!\nБудьте щасливі!" + MyProperty.Name);
             //var personViewmodel = new PersonViewModel()
             //{
@@ -83,16 +79,14 @@ namespace Lab02Mykhailenko.ViewModels
             //    Surname = MyProperty.Surname,
             //    Birthday = MyProperty.Birthday
             //};
-
-            //var control = new PersonControl(personViewmodel);
-            //var editWindow = new PersonEditWindow(control);
-
-            //editWindow.Show();
         }
         private void DeletePerson()
         {
             //delete this person
+            var service = new PeopleService();
+            service.DeleteNewPerson(MyProperty);
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {

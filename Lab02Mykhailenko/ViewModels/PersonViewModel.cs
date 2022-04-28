@@ -16,10 +16,14 @@ namespace Lab02Mykhailenko.ViewModels
         private Action _goToAllPeople;
         private bool _isEnabled = true;
         #endregion
+
+        #region Constructors
         public PersonViewModel(Action gotoAllPeople)
         {
             _goToAllPeople = gotoAllPeople;
         }
+        #endregion
+
         #region Properties
         public string Name
         {
@@ -248,10 +252,9 @@ namespace Lab02Mykhailenko.ViewModels
                 NotifyPropertyChanged("SunSign");
                 NotifyPropertyChanged("ChineseSign");
                 NotifyPropertyChanged("IsBirthday");
-                // var newPerson = new PeopleViewModel();
 
-                var service = new ServicePeople();
-                service.addNewPerson(_person);
+                var service = new PeopleService();
+                service.AddNewPerson(_person);
                 _goToAllPeople.Invoke();
 
             }

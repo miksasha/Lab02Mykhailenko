@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Lab02Mykhailenko.Server
 {
-    class ServicePeople
+    class PeopleService
     {
         private static ObservableCollection<Person> _people = new ObservableCollection<Person> {  
                 new Person("Марія", "Воловська", "mar@gmail.com", new DateTime(1999, 1, 4)),
@@ -15,7 +15,7 @@ namespace Lab02Mykhailenko.Server
                 new Person("Lili", "Miklson", "lil@gmail.com") };
 
     #region Property
-    public static ObservableCollection<Person> People
+        public static ObservableCollection<Person> People
         {
             get { return _people; }
             set
@@ -25,23 +25,35 @@ namespace Lab02Mykhailenko.Server
             }
         }
         #endregion
-        public ServicePeople()
+        public PeopleService()
         {
 
         }
 
-        public void addNewPerson(Person person)
+        public void AddNewPerson(Person person)
         {
             bool alreadyExist = false;
             foreach (var per in _people)
             {
-                if (per.Name == person.Name && per.Surname.Equals(person.Surname)
+                if (per.Name.Equals(person.Name) && per.Surname.Equals(person.Surname)
                     && per.Email.Equals(person.Email) && per.Birthday.Equals(person.Birthday))
                 { alreadyExist = true; break; }
             }
             if (!alreadyExist)
             {
                 _people.Add(person);
+            }
+        }
+
+        public void DeleteNewPerson(Person person)
+        {
+            foreach (var per in _people)
+            {
+                if (per.Equals(person))
+                {
+                    People.Remove(per);
+                    break;
+                }
             }
         }
     }

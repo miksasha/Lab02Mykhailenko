@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Lab02Mykhailenko"
         mc:Ignorable="d"
         xmlns:project="clr-namespace:Lab02Mykhailenko.Views"
-        Title="MainWindow" Height="450" Width="825"  MinHeight="420" MinWidth="825" Background="Beige">
+        Title="MainWindow" Height="450" Width="958"  MinHeight="420" MinWidth="825" Background="Beige">
     
         <project:AllPeople></project:AllPeople>
 </Window>

@@ -1,4 +1,5 @@
-﻿using Lab02Mykhailenko.ViewModels;
+﻿using Lab02Mykhailenko.Models;
+using Lab02Mykhailenko.ViewModels;
 using System.Windows.Controls;
 
 namespace Lab02Mykhailenko.Views
