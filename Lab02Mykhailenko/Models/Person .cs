@@ -88,6 +88,7 @@ namespace Lab02Mykhailenko.Models
             _surname = surname;
             _email = email;
             _birthday = DateTime.Today.AddDays(1);
+          //  _guid = new Guid();
         }
 
         //Ім’я, прізвище, дата народження
@@ -97,6 +98,7 @@ namespace Lab02Mykhailenko.Models
             _surname = surname;
             _email = null;
             _birthday = birthday;
+            _guid = new Guid();
         }
         public bool IsAdult { get; set; }
 

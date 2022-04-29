@@ -19,7 +19,6 @@ namespace Lab02Mykhailenko.ViewModels
         private RelayCommand<object> _delete;
         private Action _goToPersonView;
         private PersonViewModel _curentPerson;
-        private int countClick = 0;
         #endregion
 
         #region Property
@@ -90,23 +89,7 @@ namespace Lab02Mykhailenko.ViewModels
         {
             var peopleService = new PeopleService();
             bool newPerson = await peopleService.AddNewPersonAsync(_curentPerson);
-            if (!newPerson)
-            {
-                _personService.Delete(MyProperty);
-                await peopleService.AddNewPersonAsync(MyProperty);
-                MessageBox.Show("Зміни збережено");
-                NotifyPropertyChanged();
-            }
-            else
-            {
-
-            }
-            //if (!newPerson)
-            //{
-            //    MessageBox.Show("Людина з таким email вже існує");
-            //}
-            //_personService.Delete(MyProperty);
-            //People.Remove(MyProperty);
+            MessageBox.Show("Зміни збережено");
         }
         private void DeletePerson()
         {
