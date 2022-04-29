@@ -81,7 +81,10 @@ namespace Lab02Mykhailenko.Repositories
 
             foreach (PersonViewModel p in _people)
             {
-                _ = AddOrUpdateAsync(p);
+                string filePath = Path.Combine(BaseFolder, p.Guid.ToString());
+
+                if (!File.Exists(filePath))
+                    _ = AddOrUpdateAsync(p);
             }
         }
 
