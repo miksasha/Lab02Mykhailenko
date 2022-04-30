@@ -36,7 +36,7 @@
                 <DataGridTemplateColumn Header="Email" SortMemberPath="Email" CanUserSort="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >
-                            <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

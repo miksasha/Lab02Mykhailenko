@@ -216,9 +216,11 @@ namespace Lab02Mykhailenko.Models
             if (age >= 18)
             {
                 IsAdult = true;
-            };
+            }else
+            {
 
-            IsAdult = false;
+                IsAdult = false;
+            }
         }
         #endregion
     }

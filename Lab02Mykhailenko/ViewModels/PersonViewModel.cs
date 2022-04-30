@@ -35,8 +35,7 @@ namespace Lab02Mykhailenko.ViewModels
         {
             get
             {
-                if (CorrectDate()) { return _person.Name; }
-                return " ";
+               return _person.Name; 
             }
             set { _person.Name = value; }
         }
@@ -45,8 +44,7 @@ namespace Lab02Mykhailenko.ViewModels
         {
             get
             {
-                if (CorrectDate()) { return _person.Surname; }
-                return " ";
+                return _person.Surname; 
             }
             set { _person.Surname = value; }
         }
@@ -55,8 +53,7 @@ namespace Lab02Mykhailenko.ViewModels
         {
             get
             {
-                if (CorrectDate()) { return _person.Email; }
-                return " ";
+                return _person.Email;
             }
             set 
             { 
@@ -90,7 +87,7 @@ namespace Lab02Mykhailenko.ViewModels
                         MessageBox.Show(ex.Message + $"\nНекоректне значення: {ex.Value.ToString("d")}");
                     }
 
-                    SetIsAdult();
+                  //  SetIsAdult();
                     NotifyPropertyChanged("IsAdult");
                     NotifyPropertyChanged("SunSign");
                     NotifyPropertyChanged("ChineseSign");
@@ -99,15 +96,15 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        private void SetIsAdult()
-        {
-            DateTime today = DateTime.Today;
-            int age = today.Year - Birthday.Year;
-            if (today.Month - Birthday.Month < 0) --age;
-            if (today.Month - Birthday.Month == 0 && today.Day - Birthday.Day < 0) --age;
+        //private void SetIsAdult()
+        //{
+        //    DateTime today = DateTime.Today;
+        //    int age = today.Year - Birthday.Year;
+        //    if (today.Month - Birthday.Month < 0) --age;
+        //    if (today.Month - Birthday.Month == 0 && today.Day - Birthday.Day < 0) --age;
 
-            IsAdult = age > 18;
-        }
+        //    IsAdult = age > 18;
+        //}
 
         public string BirthdayToString
         {
@@ -118,8 +115,21 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
-        public bool IsAdult { get; set; }
-        
+  //      public bool IsAdult { get; set; }
+
+        public string IsAdult
+        {
+            get
+            {
+                if (CorrectDate())
+                {
+                    if (_person.IsAdult)
+                        return "Так";
+                    return "Ні";
+                }
+                return " ";
+            }
+        }
 
         public string SunSign
         {

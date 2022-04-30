@@ -87,9 +87,23 @@ namespace Lab02Mykhailenko.ViewModels
 
         private async Task EditPersonAsync()
         {
-            var peopleService = new PeopleService();
-            bool newPerson = await peopleService.AddNewPersonAsync(_curentPerson);
-            MessageBox.Show("Зміни збережено");
+            if(CorrectDate() && CorrectEmail())
+            {
+                var peopleService = new PeopleService();
+                bool newPerson = await peopleService.AddNewPersonAsync(_curentPerson);
+                MessageBox.Show("Зміни збережено");
+            }
+            else
+            {
+                if (!CorrectDate())
+                {
+                    MessageBox.Show("Зміни не буде збережено, якщо не буде вказано коректну дату");
+                }
+                if (!CorrectEmail())
+                {
+                    MessageBox.Show("Зміни не буде збережено, якщо не буде вказано коректний email");
+                }
+            }
         }
         private void DeletePerson()
         {
@@ -97,6 +111,40 @@ namespace Lab02Mykhailenko.ViewModels
             People.Remove(MyProperty);
         }
 
+        #region Check
+        public bool CorrectDate()
+        {
+            if (_curentPerson.Birthday > DateTime.Today) return false;
+
+            DateTime today = DateTime.Today;
+            int age = today.Year - _curentPerson.Birthday.Year;
+            if (today.Month - _curentPerson.Birthday.Month < 0) --age;
+            if (today.Month - _curentPerson.Birthday.Month == 0)
+                if (today.Day - _curentPerson.Birthday.Day < 0) --age;
+
+
+            if (age > 135) return false;
+            return true;
+        }
+
+        public bool CorrectEmail()
+        {
+            string email = _curentPerson.Email;
+            int count = 0;
+            for (int i = 0; i < email.Length; i++)
+            {
+                if (email[i] == '@')
+                {
+                    count++;
+                    if (i == email.Length - 1)
+                        return false;
+                }
+            }
+            if (count == 1)
+                return true;
+            return false;
+        }
+        #endregion
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
