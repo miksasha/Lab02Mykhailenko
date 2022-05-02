@@ -1,8 +1,10 @@
 ﻿using Lab02Mykhailenko.Server;
 using Lab02Mykhailenko.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,12 +15,17 @@ namespace Lab02Mykhailenko.ViewModels
     {
         #region Fields
         private ObservableCollection<PersonViewModel> _people;
+        private ObservableCollection<PersonViewModel> _selectedPeople;
         private PersonService _personService;
         private RelayCommand<object> _add;
         private RelayCommand<object> _edit;
         private RelayCommand<object> _delete;
+        private RelayCommand<object> _fil;
         private Action _goToPersonView;
         private PersonViewModel _curentPerson;
+        private string _wordToFind;
+        private List<string> _allColumns;
+        private string _wordForSearch;
         #endregion
 
         #region Property
@@ -33,6 +40,17 @@ namespace Lab02Mykhailenko.ViewModels
             }
         }
 
+        public ObservableCollection<PersonViewModel> SelectedPeople
+        {
+            get { return _selectedPeople; }
+            set
+            {
+             //   if (_selectedPeople == value) return;
+                _selectedPeople = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public PersonViewModel MyProperty { 
             get
             { return _curentPerson; }
@@ -40,6 +58,38 @@ namespace Lab02Mykhailenko.ViewModels
             {
                 if (_curentPerson == value) return;
                 _curentPerson = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public List<string> AllColumns
+        {
+            get
+            {
+                return _allColumns;
+            }
+
+        }
+        public string WordToFind
+        {
+            get
+            {
+                return _wordToFind;
+            }
+            set {
+                _wordToFind = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string WordForSearch
+        {
+            get
+            {
+                return _wordForSearch;
+            }
+            set
+            {
+                _wordForSearch = value;
                 NotifyPropertyChanged();
             }
         }
@@ -51,6 +101,18 @@ namespace Lab02Mykhailenko.ViewModels
             _personService = new PersonService();
             People = new ObservableCollection<PersonViewModel>(_personService.GetAllPeople());
             _goToPersonView = gotoPersonView;
+
+            _selectedPeople = new ObservableCollection<PersonViewModel>();
+            _selectedPeople.Add(new PersonViewModel() { Name = "Vitalik", Surname = "Mamontov", Email = "vitalik_mamo@dff.com", Birthday = new DateTime(2000, 09, 1), Guid = new Guid("1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") });
+            _allColumns = new List<string>();
+            _allColumns.Add("Ім'я");
+            _allColumns.Add("Прізвище");
+            _allColumns.Add("Email");
+            _allColumns.Add("Дата народження");
+            _allColumns.Add("Чи дорослий?");
+            _allColumns.Add("Західна астрологія");
+            _allColumns.Add("Китайська астрологія");
+            _allColumns.Add("Чи сьогодні народився?");
         }
         #endregion
 
@@ -76,6 +138,14 @@ namespace Lab02Mykhailenko.ViewModels
             get
             {
                 return _delete ??= new RelayCommand<object>(_ => DeletePerson());
+            }
+        }
+
+        public RelayCommand<object> FilterCommand
+        {
+            get
+            {
+                return _fil ??= new RelayCommand<object>(_ => OpenFilterWindow());
             }
         }
         #endregion
@@ -109,6 +179,78 @@ namespace Lab02Mykhailenko.ViewModels
         {
             _personService.Delete(MyProperty);
             People.Remove(MyProperty);
+        }
+
+        private void OpenFilterWindow()
+        {
+            List<PersonViewModel> selectedPerson = new List<PersonViewModel>();
+            bool goToDefault = false;
+            switch (WordToFind)
+            {
+                case "Ім'я":
+                    var s = from person in _people
+                            where person.Name.Equals(WordForSearch)
+                            select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Прізвище":
+                    s = from person in _people
+                        where person.Surname.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Email":
+                    s = from person in _people
+                        where person.Email.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Дата народження":
+                    s = from person in _people
+                        where person.BirthdayString.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Чи дорослий?":
+                    s = from person in _people
+                        where person.IsAdult.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Чи сьогодні народився?":
+                    s = from person in _people
+                        where person.IsBirthday.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Західна астрологія":
+                    s = from person in _people
+                        where person.SunSign.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Китайська астрологія":
+                    s = from person in _people
+                        where person.ChineseSign.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                default:
+                    goToDefault = true;
+                    MessageBox.Show("Оберіть колонку, в якій відбуватиметься фільтрація");
+                    break;
+            }
+            SelectedPeople.Clear();
+            if(selectedPerson.Count==0 && !goToDefault)
+            {
+                MessageBox.Show("Не знайдено співпадіння");
+            }
+            foreach (PersonViewModel p in selectedPerson)
+            {
+                SelectedPeople.Add(p);
+            }
+            NotifyPropertyChanged("SelectedPeople");
+            
         }
 
         #region Check
@@ -145,6 +287,7 @@ namespace Lab02Mykhailenko.ViewModels
             return false;
         }
         #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {

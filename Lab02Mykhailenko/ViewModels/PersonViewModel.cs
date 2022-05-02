@@ -95,6 +95,16 @@ namespace Lab02Mykhailenko.ViewModels
                 }
             }
         }
+        public string BirthdayString
+        {
+            get
+            { return _person.Birthday.ToString("d"); }
+
+            set
+            {
+              
+            }
+        }
 
         //private void SetIsAdult()
         //{

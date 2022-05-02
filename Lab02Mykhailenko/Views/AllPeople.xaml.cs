@@ -1,4 +1,5 @@
 ﻿using Lab02Mykhailenko.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Lab02Mykhailenko.Views
@@ -18,6 +19,13 @@ namespace Lab02Mykhailenko.Views
         public void GoToPersonControlAdd()
         {
             Content = new PersonControl();
+        }
+
+        public void ComboBox_Selected(object sender, RoutedEventArgs e)
+        {
+            //ComboBox comboBox = (ComboBox)sender;
+            //var selectedItem = comboBox.SelectedItem as string; 
+            //MessageBox.Show(selectedItem);
         }
     }
 }
