@@ -89,6 +89,18 @@
         <TextBox   Grid.Row="3"  Margin="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="30"
                   Text="{Binding WordForSearch}"/>
         <Button  Grid.Row="3" Margin="5" Grid.Column="2" VerticalAlignment="Center" Width="200" Height="30" Content="Фільтрувати" Command="{Binding FilterCommand}"/>
-        <DataGrid Grid.Row="4" Grid.ColumnSpan="3"  ItemsSource="{Binding SelectedPeople}" IsReadOnly="True" CanUserAddRows="False"></DataGrid>
+        <DataGrid Grid.Row="4" Grid.ColumnSpan="3"  ItemsSource="{Binding SelectedPeople}" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Ім'я" Binding="{Binding Name}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Прізвище" Binding="{Binding Surname}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Email" Binding="{Binding Email}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Дата народження" Binding="{Binding BirthdayString}" />
+                
+                <DataGridTextColumn IsReadOnly="True" Header="Чи дорослий?" Binding="{Binding IsAdult}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Західна астрологія:" Binding="{Binding SunSign}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Китайська астрологія:" Binding="{Binding ChineseSign}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Чи сьогодні народився?" Binding="{Binding IsBirthday}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -103,7 +103,7 @@ namespace Lab02Mykhailenko.ViewModels
             _goToPersonView = gotoPersonView;
 
             _selectedPeople = new ObservableCollection<PersonViewModel>();
-            _selectedPeople.Add(new PersonViewModel() { Name = "Vitalik", Surname = "Mamontov", Email = "vitalik_mamo@dff.com", Birthday = new DateTime(2000, 09, 1), Guid = new Guid("1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") });
+
             _allColumns = new List<string>();
             _allColumns.Add("Ім'я");
             _allColumns.Add("Прізвище");
