@@ -217,12 +217,6 @@ namespace Lab02Mykhailenko.ViewModels
                         select person;
                     selectedPerson = s.ToList();
                     break;
-                case "Чи сьогодні народився?":
-                    s = from person in _people
-                        where person.IsBirthday.Equals(WordForSearch)
-                        select person;
-                    selectedPerson = s.ToList();
-                    break;
                 case "Західна астрологія":
                     s = from person in _people
                         where person.SunSign.Equals(WordForSearch)
@@ -232,6 +226,12 @@ namespace Lab02Mykhailenko.ViewModels
                 case "Китайська астрологія":
                     s = from person in _people
                         where person.ChineseSign.Equals(WordForSearch)
+                        select person;
+                    selectedPerson = s.ToList();
+                    break;
+                case "Чи сьогодні народився?":
+                    s = from person in _people
+                        where person.IsBirthday.Equals(WordForSearch)
                         select person;
                     selectedPerson = s.ToList();
                     break;
